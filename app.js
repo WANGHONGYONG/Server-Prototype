@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var http = require('http');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var config = require('./config/config');
+var mongoose = require('mongoose');
 
 var app = express();
 
@@ -26,8 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var router = express.Router();
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+var database = require('./database/database');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,13 +46,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/*
+// 서버 리턴 받음
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('서버가 시작되었습니다. 포트 : ' + app.get('port'));
 
   // 데이터베이스 초기화
   database.init(app, config);
-
-});*/
+});
 
 module.exports = app;
