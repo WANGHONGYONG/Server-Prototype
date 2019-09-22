@@ -5,6 +5,7 @@ module.exports = {
         //{file:'./coffeeshop', path:'/process/addcoffeeshop', method:'add', type:'post'}
         {file: './addGeoInfo', path: '/process/addGeoInfo', method: 'add', type: 'post'},
         {file: './searchGeoInfo', path: '/process/searchGeoInfo', method: 'list', type: 'post'},
+        {file: './nearGeoInfo', path: '/process/nearGeoInfo', method: 'near2', type: 'post'},
     ],
     db_schemas: [
         { file : './geo_schema', collection : 'geoInfo', schemaName : 'geoInfo', modelName : 'GeoInfoModel'},

@@ -16,6 +16,11 @@ Schema.createSchema = function(mongoose) {
         return this.find({}, callback);
     });
 
+    // 가장 가까운 커피숍 조회
+    GeoSchema.static('near', function(longitude, latitude, maxDistance, callback) {
+        this.find().where('geometry').near({center:{type:'Point', coordinates:[parseFloat(longitude), parseFloat(latitude)]}, maxDistance:maxDistance}).limit(1).exec(callback);
+    });
+
     return GeoSchema;
 };
 
