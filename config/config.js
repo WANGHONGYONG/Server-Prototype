@@ -3,8 +3,10 @@ module.exports = {
     db_url: 'mongodb://localhost:27017/local',
     route_info: [
         //{file:'./coffeeshop', path:'/process/addcoffeeshop', method:'add', type:'post'}
+        {file: './addGeoInfo', path: '/process/addGeoInfo', method: 'add', type: 'post'},
+        {file: './searchGeoInfo', path: '/process/searchGeoInfo', method: 'list', type: 'post'},
     ],
     db_schemas: [
-
-    ],
+        { file : './geo_schema', collection : 'geoInfo', schemaName : 'geoInfo', modelName : 'GeoInfoModel'},
+    ]
 }

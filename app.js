@@ -4,11 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var static = require('serve-static');
 var config = require('./config/config');
-var mongoose = require('mongoose');
+var route_loader = require('./routes/route_loader');
+var errorHandler = require('errorhandler');
+var expressErrorHandler = require('express-error-handler');
 
 var app = express();
 
@@ -24,12 +24,24 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', static(path.join(__dirname, 'public')));
 
 var router = express.Router();
+route_loader.init(app, router);
 
 var database = require('./database/database');
 
+var errorHandler = expressErrorHandler({
+  static: {
+    '404': './public/404.html'
+  }
+});
+
+app.use( expressErrorHandler.httpError(404) );
+app.use( errorHandler );
+
+/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -44,7 +56,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+});*/
 
 // 서버 리턴 받음
 var server = http.createServer(app).listen(app.get('port'), function(){
