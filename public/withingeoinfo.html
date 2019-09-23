@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>영역 내 위치 찾기 테스트</title>
+</head>
+<body>
+<h1>영역 내 위치 찾기</h1>
+<br>
+<form method="post" action="/process/findWithinGeoInfo">
+    <table>
+        <tr>
+            <td><label>현재 위치 경도</label></td>
+            <td><input type="text" name="longitude" value="127.044659" ></td>
+        </tr>
+        <tr>
+            <td><label>현재 위치 위도</label></td>
+            <td><input type="text" name="latitude" value="37.283203" ></td>
+        </tr>
+        <tr>
+            <td><label>좌상단 경도</label></td>
+            <td><input type="text" name="topleft_longitude" value="127.042790" ></td>
+        </tr>
+        <tr>
+            <td><label>좌상단 위도</label></td>
+            <td><input type="text" name="topleft_latitude" value="37.285371" ></td>
+        </tr>
+        <tr>
+            <td><label>우하단 경도</label></td>
+            <td><input type="text" name="bottomright_longitude" value="127.048648" ></td>
+        </tr>
+        <tr>
+            <td><label>우하단 위도</label></td>
+            <td><input type="text" name="bottomright_latitude" value="37.278089" ></td>
+        </tr>
+    </table>
+    <input type="submit" value="전송" name="" >
+</form>
+</body>
+</html>

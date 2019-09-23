@@ -1,4 +1,4 @@
-var near2 = function(req, res){
+var findNear2 = function(req, res){
     console.log('nearGeoInfo 안의 near 호출됨');
 
     var maxDistance = 1000;
@@ -11,7 +11,7 @@ var near2 = function(req, res){
     var database = req.app.get('database');
 
     if(database.db){
-        database.GeoInfoModel.near(paramLongitude, paramLatitude, maxDistance,
+        database.GeoInfoModel.findNear(paramLongitude, paramLatitude, maxDistance,
             function(err, results){
                 if(err) {
                     console.log('위치 검색 중 오류 발생 : ' + err.stack);
@@ -25,9 +25,10 @@ var near2 = function(req, res){
 
                 if(results){
                     if(results.length > 0){
-                        res.render('near2.ejs', {result: results[0]._doc,
-                        paramLatitude: paramLatitude,
-                        paramLongitude: paramLongitude});
+                        res.render('near2.ejs', {
+                            result: results[0]._doc,
+                            paramLatitude: paramLatitude,
+                            paramLongitude: paramLongitude});
                     } else {
                         res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
                         res.write('<h2>가까운 위치에 대한 데이터가 없습니다</h2>');
@@ -46,7 +47,7 @@ var near2 = function(req, res){
     }
 }
 
-var near = function(req, res) {
+var findNear = function(req, res) {
     var maxDistance = 1000;
 
     var paramLongitude = req.body.longitude || req.query.longitude;
@@ -59,9 +60,9 @@ var near = function(req, res) {
 
     // 데이터베이스 객체가 초기화된 경우
     if (database.db) {
-        // 1. 가까운 커피숍 검색
+        // 1. 가까운 위치 검색
 
-        database.GeoInfoModel.near(paramLongitude, paramLatitude, maxDistance, function(err, results) {
+        database.GeoInfoModel.findNear(paramLongitude, paramLatitude, maxDistance, function(err, results) {
             if (err) {
                 console.error('위치 검색 중 에러 발생 : ' + err.stack);
 
@@ -106,5 +107,5 @@ var near = function(req, res) {
 
 };
 
-module.exports.near2 = near2;
-module.exports.near = near;
+module.exports.findNear2 = findNear2;
+module.exports.findNear = findNear;
