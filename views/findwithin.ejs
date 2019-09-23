@@ -23,6 +23,7 @@
         }
     </style>
 
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxgSpw5aHnyVE8_MhnxWji5qK8Cjl6zzQ"></script>
 
     <script>
@@ -32,13 +33,12 @@
 
         var map;
 
+
         // 내 위치를 위한 좌표
         var centerLocation = {lat: <%= paramLatitude %>, lng: <%= paramLongitude %>};
-
+        console.dir(<%= saved_place %>);
         // 목표 위치를 위한 좌표
-        var targetLocation = {
-            lat: <%= result.geometry.coordinates[1] %>,
-            lng: <%= result.geometry.coordinates[0] %>};
+
 
         // 사각형 검색 영역을 위한 좌표
         var coords = new google.maps.LatLngBounds(
@@ -64,14 +64,21 @@
 
             // 목표 위치 표시
 
+            var targetLocation = [ {lat:<%=saved_place[0]%>, lng:<%=saved_place[1]%>},
+                {lat: <%=saved_place[2]%>, lng:<%=saved_place[3]%>},
+                {lat: <%=saved_place[4]%>, lng:<%=saved_place[5]%>},
+                {lat: <%=saved_place[6]%>, lng:<%=saved_place[7]%>},
+                {lat: <%=saved_place[8]%>, lng:<%=saved_place[9]%>}];
 
-            var targetMarker = new google.maps.Marker({
-                position: targetLocation,
-                icon: '/public/images/target2.png'
-            });
+            for(var i = 0; i < targetLocation.length; i = i + 1){
+                var targetMarker = new google.maps.Marker({
+                    position: targetLocation[i],
+                    icon: '/public/images/target2.png'
+                });
 
+                targetMarker.setMap(map);
+            }
 
-            targetMarker.setMap(map);
 
             // 검색하려는 영역 표시
             var rectangle = new google.maps.Rectangle({
@@ -90,7 +97,7 @@
 
 </head>
 <body onload="onLoad()">
-
+<a href="/public/main.html">메인화면으로 되돌아가기</a>
 <p>사각형 박스 안의 위치 찾아 구글맵에 표시하기</p>
 <div id="map"></div>
 

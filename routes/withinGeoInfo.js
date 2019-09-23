@@ -34,20 +34,22 @@ var findWithin2 = function (req, res) {
                 if (results) {
                     if (results.length > 0) {
                         console.log('results.length ' + results.length);
+
+                        var saved_place = new Array();
                         for (var i = 0; i < results.length; i++) {
-                            console.log(results[i]._doc.geometry.coordinates[1] + ' ' + results[i]._doc.geometry.coordinates[0]);
+                            //console.log(results[i]._doc.geometry.coordinates[1] + ' ' + results[i]._doc.geometry.coordinates[0]);
+                            saved_place.push(results[i]._doc.geometry.coordinates[1], results[i]._doc.geometry.coordinates[0]);
                         }
-                        for(var i = 0; i < results.length; i++) {
-                            res.render('findwithin.ejs', {
-                                result: results[i],
-                                paramLongitude: paramLongitude,
-                                paramLatitude: paramLatitude,
-                                paramTopLeftLongitude: paramTopLeftLongitude,
-                                paramTopLeftLatitude: paramTopLeftLatitude,
-                                paramBottomRightLongitude: paramBottomRightLongitude,
-                                paramBottomRightLatitude: paramBottomRightLatitude
-                            });
-                        }
+                        res.render('findwithin.ejs', {
+                            saved_place: saved_place,
+                            paramLongitude: paramLongitude,
+                            paramLatitude: paramLatitude,
+                            paramTopLeftLongitude: paramTopLeftLongitude,
+                            paramTopLeftLatitude: paramTopLeftLatitude,
+                            paramBottomRightLongitude: paramBottomRightLongitude,
+                            paramBottomRightLatitude: paramBottomRightLatitude
+                        });
+
                     } else {
                         res.writeHead('200', {'Content-Type': 'text/html;charset=utf-8'});
                         res.write('<h1>범위 위치 안에 데이터 없음</h1>');

@@ -29,6 +29,7 @@ var add = function(req, res){
                 res.writeHead('200', {'Content-Type':'text/html;charset=utf-8'});
                 res.write('<h1>지도 정보 추가 성공</h1>');
                 res.write('<h2>' + result._doc.paramLongitude + ' ' + result._doc.paramLatitude +'</h2>')
+                res.write("<a href='/public/main.html'>메인화면으로 되돌아가기</a>");
                 res.end();
             } else {
                 res.writeHead('200', {'Content-Type':'text/html;charset=utf-8'});
@@ -57,7 +58,6 @@ var addGeoInfo = function(database, name, address, longitude, latitude, callback
             return;
         }
 
-        console.log('위치 정보 추가 성공');
         callback(null, geo);
     });
 }

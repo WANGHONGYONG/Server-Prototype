@@ -30,6 +30,7 @@ var list = function(req, res){
                         + curLongitude + ' ' + curLatitude + '</li>');
                 }
                     res.write('</ul></div>');
+                    res.write("<a href='/public/main.html'>메인화면으로 되돌아가기</a>");
                     res.end();
             } else {
                 res.writeHead('200', {'Content-Type':'text/html;charset=utf-8'});
